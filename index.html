@@ -77,6 +77,9 @@
         var reader = new FileReader();
         reader.onload = function(e) {
           var contents = e.target.result;
+          // Marcos - Basicamente agora teremos um array ["graph", "0", "edge" "1", "A", "12"...]
+          //contents = contents.split(/\s/);
+          console.log(contents.split(/\s/));
           displayContents(contents);
         };
         reader.readAsText(file);
