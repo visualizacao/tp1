@@ -7,6 +7,7 @@ Trabalho Prático de Visualização de Dados
 
 - No Fedora basta seguir o tutorial da página abaixo:
 
+http://www.unixmen.com/install-lamp-server-apache-mariadb-php-fedora-212019/
 
 - Depois é deve-se colocar a pasta do projeto na pasta:
 
