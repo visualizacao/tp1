@@ -29,19 +29,21 @@ grafos.delete_at(0)
 
 letras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", 
 	"T", "U", "V", "W", "X", "Y", "Z"]
-CSV.open("converted.csv", "wb") do |csv|
-  idx_grafo = 0
-  grafos.each do |g|
-  	csv << ["idgrafo", "idpessoa", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", 
-  	"P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-  	idx_pessoa = 1
-  	g.each do |pess|
-  		csv << [idx_grafo, idx_pessoa, pess["A"], pess["B"], pess["C"], pess["D"], pess["E"], pess["F"], 
-  		pess["G"], pess["H"], pess["I"], pess["J"], pess["K"], pess["L"], pess["M"], pess["N"], pess["O"],
-  		pess["P"], pess["Q"], pess["R"], pess["S"], pess["T"], pess["U"], pess["V"], pess["W"], pess["X"], 
-  		pess["Y"], pess["Z"]]
-  		idx_pessoa += 1
-  	end
-  	idx_grafo += 1
+(0...grafos.size).each do |i|
+  CSV.open("converted#{i}.csv", "wb") do |csv|
+    idx_grafo = 0
+    grafos.each do |g|
+      csv << ["idgrafo", "idpessoa", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", 
+      "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+      idx_pessoa = 1
+      g.each do |pess|
+        csv << [idx_grafo, idx_pessoa, pess["A"], pess["B"], pess["C"], pess["D"], pess["E"], pess["F"], 
+        pess["G"], pess["H"], pess["I"], pess["J"], pess["K"], pess["L"], pess["M"], pess["N"], pess["O"],
+        pess["P"], pess["Q"], pess["R"], pess["S"], pess["T"], pess["U"], pess["V"], pess["W"], pess["X"], 
+        pess["Y"], pess["Z"]]
+        idx_pessoa += 1
+      end
+      idx_grafo += 1
+    end
   end
 end
