@@ -29,10 +29,9 @@ grafos.delete_at(0)
 
 letras = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", 
 	"T", "U", "V", "W", "X", "Y", "Z"]
-(0...grafos.size).each do |i|
-  CSV.open("converted#{i}.csv", "wb") do |csv|
-    idx_grafo = 0
-    grafos.each do |g|
+  idx_grafo = 0
+  grafos.each do |g|
+    CSV.open("#{idx_grafo}.csv", "wb") do |csv|
       csv << ["idgrafo", "idpessoa", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", 
       "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
       idx_pessoa = 1
