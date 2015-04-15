@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
-	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-	
-	
+	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript">
-	
-	$(document).ready(function(){
-		
-		$("#grafo").click(function( e ){
-			e.preventDefault();
-			var value = $( this ).attr('value');
-			if(!value)
-			value = 0;
-			console.log("consoolee"+value);
-			$("#grafos").load("pag2.html", teste=value);
-		});
-	});
+    	$(document).ready(function(){
+    		
+    		$("#grafo").click(function( e ){
+    			e.preventDefault();
+    			var value = $( this ).attr('value');
+    			if(!value)
+    			value = 0;
+    			console.log("consoolee"+value);
+    			$("#grafos").load("pag2.html", teste=value);
+    		});
+    	});
 	</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,13 +48,9 @@
       width: 170px; 
       height: 170px;
     }
-
-
 </style>
-<script src="http://d3js.org/d3.v3.min.js"></script>
 
 <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -70,7 +62,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Trabalho Prático I</a>
+                <a class="navbar-brand" href="index.html">Trabalho Prático I</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -79,7 +71,7 @@
                         <a href="#">Grupo</a>
                     </li>
                     <li>
-                        <a href="#">Sobre o Trabalho</a>
+                        <a href="index.html">Sobre o Trabalho</a>
                     </li>
                 </ul>
             </div>
@@ -90,22 +82,19 @@
 
     <!-- Page Content -->
 	<div class="container">
-
         <!-- Introduction Row -->
-        
-	
-		 <div id="grafos">
-		
-		<div class="row">
-            <div class="col-lg-12">
-               <h3>  <ul id = grafo> <u>>Clique para iniciar a visualização</u></ul> </h3>
-                  </br>
-                    
-                </br>
+        <div id="grafos">
+            <div class="row">
+                <div class="col-lg-12">
+                   <h3 align="center">  
+                    <ul id = "grafo">
+                        <a href="pag2.html">Clique para iniciar a visualização</a>
+                    </ul> 
+                    </h3>
+                      </br>
+                    </br>
+                </div>
             </div>
-        </div>
-       
-          
         </div>
         <!-- Footer -->
         <footer>
