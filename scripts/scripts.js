@@ -38,13 +38,23 @@ var svg = d3.select("#grafos").selectAll(".pie")
               .attr("height", radius * 2)
             .append("g")
               .attr("transform", "translate(" + radius + "," + radius + ")");
+
+// CREATE TOOLTIP    
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .html(function(d) {return d.data.name +"="+ d.data.population; })
+  .direction('s')
+svg.call(tip);
              
 svg.selectAll(".arc")
   .data(function(d) { return pie(d.ages); })
 .enter().append("path")
   .attr("class", "arc")
   .attr("d", arc)
-  .style("fill", function(d) {return color(d.data.name); });
+  .style("fill", function(d) {return color(d.data.name); })
+      // SHOW/HIDE TOOLTIP
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
 svg.append("text")
   .attr("dy", ".35em")
