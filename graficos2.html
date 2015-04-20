@@ -1,111 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
-	
-	
 
 </head>
 <style>
-    #grafos2 {
-      font: 15px sans-serif;
-    }
+  #grafos2 {
+    font: 15px sans-serif;
+  }
 
-    svg2 {
-      padding: 10px 0 0 10px;
-    }
+  svg2 {
+    padding: 10px 0 0 10px;
+  }
 
-    .arc2 {
-      stroke: #fff;
-    }
+  .arc2 {
+    stroke: #fff;
+  }
 
-    .pie{
-      width: 170px; 
-      height: 170px;
-    }
-
-
+  .pie{
+    width: 170px; 
+    height: 170px;
+  }
 </style>
+
 <script src="http://d3js.org/d3.v3.min.js"></script>
 
 <body>
-		
-		
+  <div id="grafos2">
+    <script type="text/javascript">
+      var idGrafoEscolhido;
+      if(!idGrafoEscolhido)
+      idGrafoEscolhido = 0;
+      var radius2 = 60,
+      padding2 = 10;
 
-	<div id="grafos2">
-		 <script type="text/javascript">
+      var color = d3.scale.ordinal()
+      .range(["#FF8C00","#F0E68C","#00BFFF","#696969","#C0C0C0", "#7B68EE","#DC143C",
+      "#708090","#00FF00","#FF00FF","#483D8B","#8A2BE2","#556B2F", "#800000","#B22222",
+      "#008B8B","#006400","#8B4513","#DEB88","#FF6347","#FFB6C1","#FFE4C4","#FFDAB9","#B0E0E6",
+      "#D2B48C","#F5DEB3"]);
 
-                    			
-				
+      var arc2 = d3.svg.arc()
+      .outerRadius(radius2)
+      .innerRadius(radius2 - 30);
 
-                    var teste;
-					if(!teste)
-					teste = 0;
-					
-										
-						
-					var radius2 = 60,
-                        padding2 = 10;
+      var pie = d3.layout.pie()
+      .sort(null)
+      .value(function(d) { return d.population; });
+      d3.csv("data/"+idGrafoEscolhido+"_2.csv", function(error, data) {
+      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "idgrafo" && key !== "idpessoa"; }));
 
-                    var color = d3.scale.ordinal()
-                        .range(["#FF8C00","#F0E68C","#00BFFF","#696969","#C0C0C0", "#7B68EE","#DC143C",
-                          "#708090","#00FF00","#FF00FF","#483D8B","#8A2BE2","#556B2F", "#800000","#B22222",
-                          "#008B8B","#006400","#8B4513","#DEB88","#FF6347","#FFB6C1","#FFE4C4","#FFDAB9","#B0E0E6",
-                          "#D2B48C","#F5DEB3"]);
+      data.forEach(function(d) {
+        d.ages = color.domain().map(function(name) {
+        return {name: name, population: +d[name]};
+        });
+      });
 
-                    var arc2 = d3.svg.arc()
-                        .outerRadius(radius2)
-                        .innerRadius(radius2 - 30);
+    var svg2 = d3.select("#grafos2").selectAll(".pie")
+      .data(data)
+      .enter().append("svg")
+      .attr("class", "pie")
+      .attr("width", radius2 * 2)
+      .attr("height", radius2 * 2)
+      .append("g")
+      .attr("transform", "translate(" + radius2 + "," + radius2 + ")");
+      
+      // CREATE TOOLTIP    
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html(function(d) {return d.data.name +"="+ d.data.population; })
+        .direction('s')
+      svg2.call(tip);
 
-                    var pie = d3.layout.pie()
-                        .sort(null)
-                        .value(function(d) { return d.population; });
-					
-                    console.log(teste);
-					d3.csv("data/"+teste+"_2.csv", function(error, data) {
-                      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "idgrafo" && key !== "idpessoa"; }));
+      svg2.selectAll(".arc2")
+      .data(function(d) { return pie(d.ages); })
+      .enter().append("path")
+      .attr("class", "arc2")
+      .attr("d", arc2)
+      .style("fill", function(d) {return color(d.data.name); })
+      // SHOW/HIDE TOOLTIP
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide);
 
-                      data.forEach(function(d) {
-                        d.ages = color.domain().map(function(name) {
-                          return {name: name, population: +d[name]};
-                        });
-                      });
-
-                      
-					  
-					  var svg2 = d3.select("#grafos2").selectAll(".pie")
-                          .data(data)
-                        .enter().append("svg")
-                          .attr("class", "pie")
-                          .attr("width", radius2 * 2)
-                          .attr("height", radius2 * 2)
-                        .append("g")
-                          .attr("transform", "translate(" + radius2 + "," + radius2 + ")");
-
-	
-
-                       svg2.selectAll(".arc2")
-                          .data(function(d) { return pie(d.ages); })
-                        .enter().append("path")
-                          .attr("class", "arc2")
-                          .attr("d", arc2)
-                          .style("fill", function(d) {return color(d.data.name); });
-
-                        svg2.append("text")
-                          .attr("dy", ".35em")
-                          .style("text-anchor", "middle")
-                          .text(function(d) { return d.idpessoa; });
-						  
-						  
-
-                    });
-
-                </script>
-	</div>
-	</div>	
-		
-  
-
+      svg2.append("text")
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.idpessoa; });
+      });
+    </script>
+  </div>
 </body>
-
 </html>

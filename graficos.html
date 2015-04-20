@@ -1,60 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
-	
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-	
-	
-	<script type="text/javascript">
-	
-	$("#head").ready(function(){
-		$("#grafo").change(function( e ){
-			e.preventDefault();
-			var value = $( this ).attr('value');
-			if(!value)
-			value = 0;
-			console.log("consoolee"+value);
-			$("#grafos").load("graficos.html", teste=value);
-			$("#grafos2").load("graficos2.html", teste=value);
-		});
-	});
-	</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/round-about.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/graficos.css">
+     <link rel="stylesheet" href="//rawgithub.com/Caged/d3-tip/master/examples/example-styles.css" />
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            $("#grafo").click(function( e ){
+                e.preventDefault();
+                var value = $( this ).attr('value');
+                if(!value)
+                value = 0;
+                $("#grafos").load("graficos.html", idGrafoEscolhido=value);
+                $("#grafos2").load("graficos2.html", idGrafoEscolhido=value);
+            });
+        });
+    </script>
+    <script src="scripts/scripts.js"></script>
+    <script src="scripts/d3tip.js"></script>
 
     <title>Visualização de Dados - Trabalho Prático I</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/round-about.css" rel="stylesheet">
-
 </head>
-<style>
-    #grafos {
-      font: 15px sans-serif;
-    }
 
-    svg {
-      padding: 10px 0 0 10px;
-    }
-
-    .arc {
-      stroke: #fff;
-    }
-
-    .pie{
-      width: 170px; 
-      height: 170px;
-    }
-
-
-</style>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 
 <body>
@@ -70,7 +49,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Trabalho Prático I</a>
+                <a class="navbar-brand" href="index.html">Trabalho Prático I</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -89,33 +68,31 @@
     </nav>
 
     <!-- Page Content -->
-	<div class="container">
+    <div class="container">
 
-        <!-- Introduction Row -->
-        <div id="textDiv"><br><br></div>
+<!-- Introduction Row -->
+<div id="textDiv"><br><br></div>
 <script type="text/javascript">
     var div = document.getElementById("textDiv");
-    div.textContent = ">Grafo "+teste;
+    div.textContent = "Grafo "+idGrafoEscolhido;
     var text = div.textContent;
 </script>
-	
-		 <div id="grafos">
-		<div class="row">
-            <div class="col-lg-12">
-                  
-        	
-					<select id="grafo" class="form-control">
-					  <option  value="0" selected="selected">Visualizar outro grafo</option>
-					  <option  value="0">Grafo 0</option>
-                      <option value="1">Grafo 1</option>
-                      <option value="2">Grafo 2</option>
-                      <option value="3">Grafo 3</option>
-					  <option  value="4">Grafo 4</option>
-                      <option value="5">Grafo 5</option>
-                      <option value="6">Grafo 6</option>
-                      <option value="7">Grafo 7</option>
-					<option value="8">Grafo 8</option>
-					<option value="9">Grafo 9</option>
+    
+<div id="grafos">
+  <div class="row">
+    <div class="col-lg-12">
+      <select id="grafo" class="form-control">
+        <option  value="0" selected="selected">Visualizar outro grafo</option>
+        <option value="0">Grafo 0</option>
+        <option value="1">Grafo 1</option>
+        <option value="2">Grafo 2</option>
+        <option value="3">Grafo 3</option>
+        <option value="4">Grafo 4</option>
+        <option value="5">Grafo 5</option>
+        <option value="6">Grafo 6</option>
+        <option value="7">Grafo 7</option>
+        <option value="8">Grafo 8</option>
+        <option value="9">Grafo 9</option>
         <option value="10">Grafo 10</option>
         <option value="11">Grafo 11</option>
         <option value="12">Grafo 12</option>
@@ -206,109 +183,16 @@
         <option value="97">Grafo 97</option>
         <option value="98">Grafo 98</option>
         <option value="99">Grafo 99</option>
-					
-					</ul>
-                  </br>
-                    
-                </br>
-            </div>
-        </div>
-       
-          
-		  <script type="text/javascript">
-
-                    var teste;
-					if(!teste)
-					teste = 0;
-					
-										
-						
-					var radius = 74,
-                        padding = 10;
-
-                    var color = d3.scale.ordinal()
-                        .range(["#FF8C00","#F0E68C","#00BFFF","#696969","#C0C0C0", "#7B68EE","#DC143C",
-                          "#708090","#00FF00","#FF00FF","#483D8B","#8A2BE2","#556B2F", "#800000","#B22222",
-                          "#008B8B","#006400","#8B4513","#DEB88","#FF6347","#FFB6C1","#FFE4C4","#FFDAB9","#B0E0E6",
-                          "#D2B48C","#F5DEB3"]);
-
-                    var arc = d3.svg.arc()
-                        .outerRadius(radius)
-                        .innerRadius(radius - 30);
-
-                    var pie = d3.layout.pie()
-                        .sort(null)
-                        .value(function(d) { return d.population; });
-					
-                    console.log(teste);
-					d3.csv("data/"+teste+".csv", function(error, data) {
-                      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "idgrafo" && key !== "idpessoa"; }));
-
-                      data.forEach(function(d) {
-                        d.ages = color.domain().map(function(name) {
-                          return {name: name, population: +d[name]};
-                        });
-                      });
-
-                      
-					  
-					  var svg = d3.select("#grafos").selectAll(".pie")
-                          .data(data)
-                        .enter().append("svg")
-                          .attr("class", "pie")
-                          .attr("width", radius * 2)
-                          .attr("height", radius * 2)
-                        .append("g")
-                          .attr("transform", "translate(" + radius + "," + radius + ")");
-
-	
-
-                       svg.selectAll(".arc")
-                          .data(function(d) { return pie(d.ages); })
-                        .enter().append("path")
-                          .attr("class", "arc")
-                          .attr("d", arc)
-                          .style("fill", function(d) {return color(d.data.name); });
-
-                        svg.append("text")
-                          .attr("dy", ".35em")
-                          .style("text-anchor", "middle")
-                          .text(function(d) { return d.idpessoa; });
-						  
-						  
-
-                    });
-
-                </script>
-
-		</div>
-        
-		
-		<div id="grafos2">
-		
-		</div>
-	
-		
-		<!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12" align="center">
-                    <p> Departamento de Ciência da Computação - Universidade Federal de Minas Gerais - 2015</p>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </footer>
-
     </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
+  </div>
+  <div id="grafos2"/>
+  <footer>
+    <div class="row">
+        <div class="col-lg-12" align="center">
+            <p> Departamento de Ciência da Computação - Universidade Federal de Minas Gerais - 2015</p>
+        </div>
+    </div>
+  </footer>
+</div>
 </body>
-
 </html>

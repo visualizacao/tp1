@@ -59,5 +59,5 @@ svg.selectAll(".arc")
 svg.append("text")
   .attr("dy", ".35em")
   .style("text-anchor", "middle")
-  .text(function(d) { return "pessoa "+ d.idpessoa; });
+  .text(function(d) { return d.idpessoa; });
 });
