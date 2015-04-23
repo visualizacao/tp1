@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="csvtotable/css/csvtable.css" type="text/css" />
+<script src="csvtotable/js/jquery-1.4.2.min.js"></script>
+<script src="csvtotable/js/jquery.csvToTable.js"></script>
+<script>
+
+function toggler(id){
+  $("#"+id).toggle();
+}
+
+</script>
+
+</head>
+<style>
+  #legenda {
+    font: 15px sans-serif;
+  }
+  .hidden {
+    display:none;
+  }
+</style>
+<body>
+<a href="#" onclick="toggler('content');">Mostrar tabela de dados</a>
+<div id="content" class='hidden'>
+  <div id="legenda">
+    <script type="text/javascript">
+      var idGrafoEscolhido;
+      if(!idGrafoEscolhido)
+        idGrafoEscolhido = 0;
+
+      $(function() {
+        $("#legenda").CSVToTable("data_legenda/"+idGrafoEscolhido+".csv");
+      });
+
+    </script>
+  </div>
+</div>
+</body>
+</html>
